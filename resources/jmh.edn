@@ -1,0 +1,13 @@
+{:benchmarks
+ [{:name :find-definition
+   :fn perf.core/find-definition
+   :args [:project]}]
+ :states
+ {:project {:fn perf.core/prepare-large-project}}
+ :options {:jmh/default {:threads 1
+                         :fork {:count 1
+                                :warmups 0}
+                         :measurement {:count 1
+                                       :iterations 1}
+                         :warmup {:iterations 0
+                                  :time [1 :seconds]}}}}

@@ -1,0 +1,11 @@
+{:deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        com.github.clojure-lsp/clojure-lsp-lib {:local/root "../clojure-lsp/lib"}
+        clojure-lsp/common-test {:local/root "../clojure-lsp/common-test"}
+        jmh-clojure/jmh-clojure {:mvn/version "0.4.1"}
+        lambdaisland/kaocha {:mvn/version "1.68.1059"}}
+ :paths ["src" "resources"]
+ :aliases {:jmh {:extra-paths ["classes"]
+                 :extra-deps {jmh-clojure/task {:mvn/version "0.1.1"}}
+                 :ns-default jmh.task
+                 :exec-fn jmh.task/run
+                 :exec-args {:format nil :status true}}}}
