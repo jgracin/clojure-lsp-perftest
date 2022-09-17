@@ -8,9 +8,16 @@ jobs:
     name: Performance test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.2.0
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          path: main
+
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          path: clojure-lsp
+          repository: clojure-lsp/clojure-lsp
 
       - name: Prepare java
         uses: actions/setup-java@v1
@@ -25,3 +32,4 @@ jobs:
 
       - name: Run tests
         run: clojure -X:jmh
+        working-directory: main
