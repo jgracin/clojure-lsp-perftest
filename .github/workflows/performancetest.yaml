@@ -31,5 +31,5 @@ jobs:
           bb: '0.9.161'
 
       - name: Run tests
-        run: clojure -X:jmh
+        run: clojure -X:jmh :output '"result.clj"' :status true
         working-directory: main

@@ -7,7 +7,7 @@
  :options {:jmh/default {:threads 1
                          :fork {:count 1
                                 :warmups 3}
-                         :measurement {:count 2
+                         :measurement {:count 1
                                        :iterations 1}
                          :warmup {:iterations 0
                                   :time [1 :seconds]}}}}
