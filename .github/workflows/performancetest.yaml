@@ -1,0 +1,27 @@
+name: Performance test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  performance-test:
+    name: Performance test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.2.0
+        with:
+          fetch-depth: 0
+
+      - name: Prepare java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Install Clojure
+        uses: DeLaGuardo/setup-clojure@master
+        with:
+          cli: '1.10.3.1013'
+          bb: '0.9.161'
+
+      - name: Run tests
+        run: clojure -X:jmh
