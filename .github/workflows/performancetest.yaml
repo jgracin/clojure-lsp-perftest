@@ -18,27 +18,26 @@ jobs:
           fetch-depth: 2
           path: clojure-lsp
           repository: clojure-lsp/clojure-lsp
-
-      - run: echo "skip=false" >> $GITHUB_ENV
           
       - name: Prepare java
-        if: env.skip != true
         uses: actions/setup-java@v1
         with:
           java-version: 17
 
       - name: Install Clojure
-        if: env.skip != true
         uses: DeLaGuardo/setup-clojure@master
         with:
           cli: '1.10.3.1013'
           bb: '0.9.161'
 
+      - run: (cd clojure-lsp && sh ../main/scripts/github-envs.sh >> $GITHUB_ENV)
+
       - name: Run tests
         run: |
-          (cd main && clojure -M:test && clojure -X:jmh :output '"result-HEAD.clj"' :status true)
-          (cd clojure-lsp && git checkout HEAD~1)
-          (cd main && clojure -M:test && clojure -X:jmh :output '"result-HEAD-1.clj"' :status true)
+          (cd clojure-lsp && git checkout $BASELINE_COMMIT)
+          (cd main && clojure -M:test && clojure -X:jmh :output '"result-BASELINE.clj"' :status true)
+          (cd clojure-lsp && git checkout $MEASURED_COMMIT)
+          (cd main && clojure -M:test && clojure -X:jmh :output '"result-MEASURED.clj"' :status true)
 
       - uses: actions/upload-artifact@v3
         with:
