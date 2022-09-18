@@ -30,6 +30,10 @@ jobs:
           cli: '1.10.3.1013'
           bb: '0.9.161'
 
-      - name: Run tests
+      - name: Run functional tests
+        run: clojure -M:test
+        working-directory: main
+
+      - name: Run performance tests
         run: clojure -X:jmh :output '"result.clj"' :status true
         working-directory: main
