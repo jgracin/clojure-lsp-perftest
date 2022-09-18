@@ -49,8 +49,9 @@ jobs:
         run: clojure -X:jmh :output '"result-HEAD-1.clj"' :status true
         working-directory: main
 
+      - run: pwd && ls -al
+        
       - uses: actions/upload-artifact@v3
         with:
           name: results
-          working-directory: main
           path: result-*.clj
