@@ -13,45 +13,49 @@ jobs:
           fetch-depth: 0
           path: main
 
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-          path: clojure-lsp
-          repository: clojure-lsp/clojure-lsp
-
-      - name: Prepare java
-        uses: actions/setup-java@v1
-        with:
-          java-version: 17
-
-      - name: Install Clojure
-        uses: DeLaGuardo/setup-clojure@master
-        with:
-          cli: '1.10.3.1013'
-          bb: '0.9.161'
-
-      - name: Run functional tests on HEAD
-        run: clojure -M:test
-        working-directory: main
-
-      - name: Run performance tests on HEAD
-        run: clojure -X:jmh :output '"result-HEAD.clj"' :status true
-        working-directory: main
-
-      - run: git checkout HEAD~1
-        working-directory: clojure-lsp
-      
-      - name: Run functional tests on HEAD~1
-        run: clojure -M:test
-        working-directory: main
-
-      - name: Run performance tests on HEAD~1
-        run: clojure -X:jmh :output '"result-HEAD-1.clj"' :status true
-        working-directory: main
+      - run: echo "myenv=1" >> $GITHUB_ENV
         
-      - uses: actions/upload-artifact@v3
-        with:
-          name: results
-          path: |
-            main/result-HEAD.clj
-            main/result-HEAD-1.clj
+      - run: echo My variable is $myenv
+        
+      # - uses: actions/checkout@v3
+      #   with:
+      #     fetch-depth: 2
+      #     path: clojure-lsp
+      #     repository: clojure-lsp/clojure-lsp
+
+      # - name: Prepare java
+      #   uses: actions/setup-java@v1
+      #   with:
+      #     java-version: 17
+
+      # - name: Install Clojure
+      #   uses: DeLaGuardo/setup-clojure@master
+      #   with:
+      #     cli: '1.10.3.1013'
+      #     bb: '0.9.161'
+
+      # - name: Run functional tests on HEAD
+      #   run: clojure -M:test
+      #   working-directory: main
+
+      # - name: Run performance tests on HEAD
+      #   run: clojure -X:jmh :output '"result-HEAD.clj"' :status true
+      #   working-directory: main
+
+      # - run: git checkout HEAD~1
+      #   working-directory: clojure-lsp
+      
+      # - name: Run functional tests on HEAD~1
+      #   run: clojure -M:test
+      #   working-directory: main
+
+      # - name: Run performance tests on HEAD~1
+      #   run: clojure -X:jmh :output '"result-HEAD-1.clj"' :status true
+      #   working-directory: main
+
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: results
+      #     path: |
+      #       main/result-HEAD.clj
+      #       main/result-HEAD-1.clj
