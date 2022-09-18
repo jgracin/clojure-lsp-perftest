@@ -15,7 +15,7 @@ jobs:
 
       - run: echo "myenv=1" >> $GITHUB_ENV
         
-      - run: echo My variable is $myenv
+      - run: date
         
       # - uses: actions/checkout@v3
       #   with:
