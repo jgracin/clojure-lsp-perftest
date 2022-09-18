@@ -38,20 +38,22 @@ jobs:
         run: clojure -X:jmh :output '"result-HEAD.clj"' :status true
         working-directory: main
 
-      # - run: git checkout HEAD~1
-      #   working-directory: clojure-lsp
+      - run: git checkout HEAD~1
+        working-directory: clojure-lsp
       
       # - name: Run functional tests on HEAD~1
       #   run: clojure -M:test
       #   working-directory: main
 
-      # - name: Run performance tests on HEAD~1
-      #   run: clojure -X:jmh :output '"result-HEAD-1.clj"' :status true
-      #   working-directory: main
+      - name: Run performance tests on HEAD~1
+        run: clojure -X:jmh :output '"result-HEAD-1.clj"' :status true
+        working-directory: main
 
       - run: pwd && ls -al main
         
       - uses: actions/upload-artifact@v3
         with:
           name: results
-          path: result-*.clj
+          path: |
+            main/result-HEAD.clj
+            main/result-HEAD-1.clj
