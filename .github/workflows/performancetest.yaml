@@ -15,7 +15,7 @@ jobs:
 
       - run: echo "myenv=1" >> $GITHUB_ENV
         
-      - run: date -v -1d +%Y-%m-%d
+      - run: date --date='1 day ago' +%Y-%m-%d
         
       # - uses: actions/checkout@v3
       #   with:
