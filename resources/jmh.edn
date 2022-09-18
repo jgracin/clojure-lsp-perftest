@@ -2,12 +2,16 @@
  [{:name :find-definition
    :fn perf.core/find-definition
    :args [:project]}]
+ 
  :states
- {:project {:fn perf.core/prepare-large-project}}
+ {:project {:trial {:setup {:fn perf.core/prepare-large-project}
+                    :teardown perf.core/teardown}}}
+ 
  :options {:jmh/default {:threads 1
                          :fork {:count 1
-                                :warmups 3}
+                                :warmups 0}
                          :measurement {:count 1
-                                       :iterations 1}
-                         :warmup {:iterations 0
+                                       :iterations 3
+                                       :time [5 :seconds]}
+                         :warmup {:iterations 3
                                   :time [1 :seconds]}}}}

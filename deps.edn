@@ -7,4 +7,6 @@
  :aliases {:jmh {:extra-paths ["classes"]
                  :extra-deps {jmh-clojure/task {:mvn/version "0.1.1"}}
                  :ns-default jmh.task
-                 :exec-fn jmh.task/run}}}
+                 :exec-fn jmh.task/run}
+           :test {:extra-deps {lambdaisland/kaocha {:mvn/version "1.69.1069"}}
+                  :main-opts ["-m" "kaocha.runner"]}}}
