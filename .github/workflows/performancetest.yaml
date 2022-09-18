@@ -52,4 +52,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: results
-          path: /main/result-*.clj
+          working-directory: main
+          path: result-*.clj
