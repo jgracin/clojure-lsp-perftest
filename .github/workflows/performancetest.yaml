@@ -12,13 +12,13 @@ jobs:
         with:
           fetch-depth: 0
           path: main
-
+        
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
           path: clojure-lsp
           repository: clojure-lsp/clojure-lsp
-
+          
       - name: Prepare java
         uses: actions/setup-java@v1
         with:
@@ -30,25 +30,15 @@ jobs:
           cli: '1.10.3.1013'
           bb: '0.9.161'
 
-      - name: Run functional tests on HEAD
-        run: clojure -M:test
-        working-directory: main
+      - run: (cd clojure-lsp && sh ../main/scripts/github-envs.sh >> $GITHUB_ENV && cat $GITHUB_ENV)
 
-      - name: Run performance tests on HEAD
-        run: clojure -X:jmh :output '"result-HEAD.clj"' :status true
-        working-directory: main
+      - name: Run tests
+        run: |
+          (cd clojure-lsp && git checkout $BASELINE_COMMIT)
+          (cd main && clojure -M:test && clojure -X:jmh :output '"result-BASELINE.clj"' :status true)
+          (cd clojure-lsp && git checkout $MEASURED_COMMIT)
+          (cd main && clojure -M:test && clojure -X:jmh :output '"result-MEASURED.clj"' :status true)
 
-      - run: git checkout HEAD~1
-        working-directory: clojure-lsp
-      
-      - name: Run functional tests on HEAD~1
-        run: clojure -M:test
-        working-directory: main
-
-      - name: Run performance tests on HEAD~1
-        run: clojure -X:jmh :output '"result-HEAD-1.clj"' :status true
-        working-directory: main
-        
       - uses: actions/upload-artifact@v3
         with:
           name: results
