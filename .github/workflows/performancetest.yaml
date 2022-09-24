@@ -30,7 +30,11 @@ jobs:
           cli: '1.10.3.1013'
           bb: '0.9.161'
 
-      - run: (cd clojure-lsp && sh ../main/scripts/github-envs.sh >> $GITHUB_ENV && cat $GITHUB_ENV)
+      - run: (cd clojure-lsp && sh ../main/scripts/github-envs.sh)
+        
+      - run: exit 1
+
+#      - run: (cd clojure-lsp && sh ../main/scripts/github-envs.sh >> $GITHUB_ENV && cat $GITHUB_ENV)
 
       - name: Run tests
         run: |
