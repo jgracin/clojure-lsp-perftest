@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 TODAY=`date +%Y-%m-%d`
-BRANCH=main
+BRANCH=master
 PREVIOUS_COMMIT=`git rev-list -n 1 --first-parent --before="$TODAY 00:00" $BRANCH`
 LATEST_COMMIT_TODAY=`git rev-list -n 1 --first-parent --since="$TODAY 00:00" $BRANCH`
 
