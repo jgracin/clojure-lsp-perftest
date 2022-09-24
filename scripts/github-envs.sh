@@ -7,6 +7,7 @@ BRANCH=master
 pwd
 ls -al
 sleep 1
+git branch
 git rev-list -n 5 --first-parent --before="$TODAY 00:00" $BRANCH
 PREVIOUS_COMMIT=`git rev-list -n 1 --first-parent --before="$TODAY 00:00" $BRANCH`
 LATEST_COMMIT_TODAY=`git rev-list -n 1 --first-parent --since="$TODAY 00:00" $BRANCH`
