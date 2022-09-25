@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 
-set -x 
-
 TODAY=`date +%Y-%m-%d`
 BRANCH=master
-date
-git rev-list -n 5 --first-parent $BRANCH
 PREVIOUS_COMMIT=`git rev-list -n 1 --first-parent --before="$TODAY 00:00" $BRANCH`
 LATEST_COMMIT_TODAY=`git rev-list -n 1 --first-parent --since="$TODAY 00:00" $BRANCH`
 
@@ -17,4 +13,9 @@ if [ -z "$LATEST_COMMIT_TODAY" ]; then
 else
     echo BASELINE_COMMIT=$PREVIOUS_COMMIT
     echo MEASURED_COMMIT=$LATEST_COMMIT_TODAY
+fi
+
+if [ -z "$BASELINE_COMMIT" -o -z "$MEASURED_COMMIT" ]; then
+    echo "ERROR_MSG=BASELINE_COMMIT or MEASURED_COMMIT empty"
+    exit 1
 fi
