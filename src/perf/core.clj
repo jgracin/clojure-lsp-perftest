@@ -34,4 +34,4 @@
   (h/reset-components!))
 
 (defn find-definition [state]
-  (q/find-definition-from-cursor (:db state) (h/file-path "/a.clj") (-> state :row) (-> state :col)))
+  (q/find-definition-from-cursor (:db state) (h/file-uri "file:///a.clj") (-> state :row) (-> state :col)))
